@@ -12,6 +12,9 @@ q3Promise.then(
     {
         printImages(planet)
         printList(planet)
+        printTable(planet)
+        printTable2(planet)
+        printTable3(planet)
         console.log("planet:",planet);
     },
     function(err)
@@ -33,12 +36,35 @@ var printImages = function(planet)
 //Question 5
 var printList = function(planet)
 {
-    d3.select("#B4").selectAll("div")
-        .data(planet)
+    var nameList = d3.select("#B4").append("ol").selectAll("li").data(planet).enter()
+    .append("li").text(function(planet) { return planet.name })
+}
+
+//Question 6
+var printTable = function(planet)
+{
+    d3.select("#C1").append("table").selectAll("tr").data(planet).enter()
+    .append("tr").attr("class", function(d) { return d.name });
+}
+
+//Question 7
+var printTable2 = function(planet)
+{
+    d3.select("#C2").append("table").selectAll("tr").data(planet)
         .enter()
-        .append("ol")
-        .selectAll("li")
-        .append("li")
-    
-        .attr("src",function(planet) { return planet.img });
+        .append("tr")
+        .text(function(d) { return d.name });
+}
+//Question 8
+var printTable3 = function(planet)
+{
+     var table = d3.select("#C3").append("table").selectAll("tr").data(planet)
+        .enter()
+        .append("tr")
+        .text(function(d) { return d.name });
+    table.append("td").append("img").attr("src", function(d) { return d.img })
+    table.append("td").text(function(d) { return d.distance })
+    table.append("td").text(function(d) { return d.radius })
+    table.append("td").text(function(d) { return d.density })
+    table.append("td").text(function(d) { return d.moon })
 }
